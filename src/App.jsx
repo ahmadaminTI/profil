@@ -79,48 +79,13 @@ const SKILL_GROUPS = [
 const PROJECTS = [
   {
     num: '01',
-    tag: 'Systems · Broker',
-    title: 'OmniFlow Distributed Broker',
-    desc: 'Message broker terdistribusi throughput tinggi dengan zero-copy packet handling dan latensi 0.42ms P99 — memproses 2.4M pesan/detik.',
-    meta: '1.2k ★ · Produksi aktif',
-    href: 'https://github.com/ahmadaminTI/omniflow-core',
-    tags: ['Rust', 'Go', 'gRPC', 'Docker'],
-  },
-  {
-    num: '02',
-    tag: 'Mobile · Observability',
-    title: 'Pulse Telemetry App',
-    desc: 'Monitoring performa cluster server real-time via WebSocket dua arah, push alert darurat, dan grafik interaktif 60 FPS di Android & iOS.',
-    meta: 'Android · iOS · Stores',
-    href: 'https://github.com/ahmadaminTI/pulse-telemetry',
-    tags: ['Kotlin', 'Swift', 'TypeScript'],
-  },
-  {
-    num: '03',
-    tag: 'Enterprise · AI',
-    title: 'NeuroQuery Semantic Pipeline',
-    desc: 'Pipeline pencarian semantik dokumen dengan indexing embedding vektor, multi-tenant isolation, dan integrasi LLM terstandarisasi.',
-    meta: '128 Dim Cache',
-    href: 'https://github.com/ahmadaminTI/neuro-search-engine',
-    tags: ['Python', 'FastAPI', 'PyTorch', 'PostgreSQL'],
-  },
-  {
-    num: '04',
-    tag: 'CLI · Open Source',
-    title: 'HyperCloud Orchestration CLI',
-    desc: 'CLI native tanpa dependensi eksternal (biner 2.1 MB) untuk orkestrasi multi-cluster Kubernetes — POSIX & Windows.',
-    meta: 'Biner mandiri',
-    href: 'https://github.com/ahmadaminTI/hypercloud-cli',
-    tags: ['C++', 'Rust', 'Bash'],
-  },
-  {
-    num: '05',
     tag: 'Web · PHP',
     title: 'Organisasi Kampus',
     desc: 'Sistem manajemen organisasi mahasiswa berbasis web tanpa framework: front-controller routing, autentikasi & sesi anggota via PDO (MySQL), plus dashboard kegiatan, keuangan, dan arsip dokumen.',
     meta: 'Arsitektur MVC ringan · Production',
     href: 'https://github.com/ahmadaminTI/organisasi-kampus',
     tags: ['PHP', 'MySQL', 'PDO', 'JavaScript', 'HTML/CSS'],
+    img: '/profil/orgkampus-dashboard.png',
     featured: true,
   },
 ]
@@ -152,6 +117,9 @@ function App() {
   const [hideLoader, setHideLoader] = useState(false)
   const [navLoading, setNavLoading] = useState(false)
   const glowRef = useRef(null)
+  const photoWrapRef = useRef(null)
+  const photoFollow = useRef({ x: 0, y: 0, tx: 0, ty: 0, rx: 0, ry: 0 })
+  const photoRaf = useRef(null)
 
   /* Loader pembuka */
   useEffect(() => {
@@ -195,6 +163,37 @@ function App() {
     if (glowRef.current) {
       glowRef.current.style.transform = `translate(${e.clientX - 220}px, ${e.clientY - 220}px)`
     }
+  }
+
+  /* Foto mengikuti arah kursor */
+  useEffect(() => {
+    const step = () => {
+      const p = photoFollow.current
+      p.x += (p.tx - p.x) * 0.09
+      p.y += (p.ty - p.y) * 0.09
+      p.rx += (-p.ty * 0.12 - p.rx) * 0.09
+      p.ry += (p.tx * 0.12 - p.ry) * 0.09
+      const el = photoWrapRef.current
+      if (el) {
+        el.style.translate = `${p.x.toFixed(2)}px ${p.y.toFixed(2)}px`
+        el.style.transform = `perspective(900px) rotateX(${p.rx.toFixed(2)}deg) rotateY(${p.ry.toFixed(2)}deg)`
+      }
+      photoRaf.current = requestAnimationFrame(step)
+    }
+    photoRaf.current = requestAnimationFrame(step)
+    return () => cancelAnimationFrame(photoRaf.current)
+  }, [])
+
+  const handlePhotoFollow = (e) => {
+    const nx = (e.clientX / window.innerWidth - 0.5) * 2
+    const ny = (e.clientY / window.innerHeight - 0.5) * 2
+    const p = photoFollow.current
+    p.tx = nx * 16
+    p.ty = ny * 16
+  }
+  const handlePhotoLeave = () => {
+    photoFollow.current.tx = 0
+    photoFollow.current.ty = 0
   }
 
   /* Navbar saat scroll */
@@ -365,6 +364,8 @@ function App() {
       <section
         id="home"
         className="relative grid min-h-screen items-center px-6 pt-24 md:grid-cols-2 md:gap-12"
+        onMouseMove={handlePhotoFollow}
+        onMouseLeave={handlePhotoLeave}
       >
         {/* Partikel hero */}
         <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
@@ -420,7 +421,10 @@ function App() {
         </div>
 
         <div className="relative z-10 mx-auto w-full max-w-lg">
-          <div className="relative aspect-[4/5] overflow-hidden rounded-lg border border-zinc-800 bg-zinc-900">
+          <div
+            ref={photoWrapRef}
+            className="relative aspect-[4/5] overflow-hidden rounded-lg border border-zinc-800 bg-zinc-900 will-change-transform"
+          >
             <div className="photo-ring" />
             <img
               src="/profil/amin.png"
@@ -643,6 +647,21 @@ function App() {
                 className={`reveal reveal-delay-${i % 2} card-lift group flex min-h-[300px] flex-col justify-between rounded-md border border-zinc-800 bg-zinc-900/40 p-6 hover:border-[#c9a55f]/50 ${project.featured ? 'lg:col-span-2' : ''}`}
               >
                 <div>
+                  {project.img && (
+                    <a
+                      href={project.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mb-5 block overflow-hidden rounded-sm border border-zinc-800"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <img
+                        src={project.img}
+                        alt={`Tampilan ${project.title}`}
+                        className="h-52 w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]"
+                      />
+                    </a>
+                  )}
                   <div className="flex items-center justify-between">
                     <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#c9a55f]">
                       {project.tag}
