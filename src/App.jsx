@@ -83,7 +83,7 @@ const PROJECTS = [
     title: 'OmniFlow Distributed Broker',
     desc: 'Message broker terdistribusi throughput tinggi dengan zero-copy packet handling dan latensi 0.42ms P99 — memproses 2.4M pesan/detik.',
     meta: '1.2k ★ · Produksi aktif',
-    href: 'https://github.com/ahmad-amin/omniflow-core',
+    href: 'https://github.com/ahmadaminTI/omniflow-core',
     tags: ['Rust', 'Go', 'gRPC', 'Docker'],
   },
   {
@@ -92,7 +92,7 @@ const PROJECTS = [
     title: 'Pulse Telemetry App',
     desc: 'Monitoring performa cluster server real-time via WebSocket dua arah, push alert darurat, dan grafik interaktif 60 FPS di Android & iOS.',
     meta: 'Android · iOS · Stores',
-    href: 'https://github.com/ahmad-amin/pulse-telemetry',
+    href: 'https://github.com/ahmadaminTI/pulse-telemetry',
     tags: ['Kotlin', 'Swift', 'TypeScript'],
   },
   {
@@ -101,7 +101,7 @@ const PROJECTS = [
     title: 'NeuroQuery Semantic Pipeline',
     desc: 'Pipeline pencarian semantik dokumen dengan indexing embedding vektor, multi-tenant isolation, dan integrasi LLM terstandarisasi.',
     meta: '128 Dim Cache',
-    href: 'https://github.com/ahmad-amin/neuro-search-engine',
+    href: 'https://github.com/ahmadaminTI/neuro-search-engine',
     tags: ['Python', 'FastAPI', 'PyTorch', 'PostgreSQL'],
   },
   {
@@ -110,7 +110,7 @@ const PROJECTS = [
     title: 'HyperCloud Orchestration CLI',
     desc: 'CLI native tanpa dependensi eksternal (biner 2.1 MB) untuk orkestrasi multi-cluster Kubernetes — POSIX & Windows.',
     meta: 'Biner mandiri',
-    href: 'https://github.com/ahmad-amin/hypercloud-cli',
+    href: 'https://github.com/ahmadaminTI/hypercloud-cli',
     tags: ['C++', 'Rust', 'Bash'],
   },
   {
@@ -126,9 +126,9 @@ const PROJECTS = [
 ]
 
 const CONTACTS = [
-  { label: 'Email', value: 'dev.ahmadamin@gmail.com', href: 'mailto:dev.ahmadamin@gmail.com' },
+  { label: 'Email', value: 'mixtromp14@gmail.com', href: 'mailto:mixtromp14@gmail.com' },
   { label: 'WhatsApp', value: '+62 852-6833-5031', href: 'https://wa.me/6285268350331' },
-  { label: 'GitHub', value: '@ahmad-amin', href: 'https://github.com/ahmad-amin' },
+  { label: 'GitHub', value: '@ahmadaminTI', href: 'https://github.com/ahmadaminTI' },
   { label: 'Instagram', value: '@oiamin._', href: 'https://www.instagram.com/oiamin._/' },
 ]
 
