@@ -1,3 +1,0 @@
-# profil
-
-rofil digital Amin
