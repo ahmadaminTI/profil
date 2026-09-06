@@ -313,12 +313,14 @@ function App() {
           <a
             href="#home"
             onClick={(e) => handleNav(e, '#home')}
-            className="group flex items-center gap-2.5 font-grotesk text-sm font-bold tracking-widest"
+            aria-label="Kembali ke beranda"
+            className="group inline-flex items-center"
           >
-            <span className="animate-float-slow grid h-9 w-9 place-items-center rounded-full border border-[#c9a55f] font-grotesk text-lg text-[#c9a55f] transition group-hover:bg-[#c9a55f] group-hover:text-[#0a0a0b]">
-              A
-            </span>
-            AMIN
+            <img
+              src="/profil/logo.png"
+              alt="Logo Amin"
+              className="animate-float-slow h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+            />
           </a>
           <div className="hidden items-center gap-8 text-sm text-zinc-400 md:flex">
             {NAV_LINKS.map((link) => (
