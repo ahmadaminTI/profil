@@ -113,6 +113,16 @@ const PROJECTS = [
     href: 'https://github.com/ahmad-amin/hypercloud-cli',
     tags: ['C++', 'Rust', 'Bash'],
   },
+  {
+    num: '05',
+    tag: 'Web · PHP',
+    title: 'Organisasi Kampus',
+    desc: 'Sistem manajemen organisasi mahasiswa berbasis web tanpa framework: front-controller routing, autentikasi & sesi anggota via PDO (MySQL), plus dashboard kegiatan, keuangan, dan arsip dokumen.',
+    meta: 'Arsitektur MVC ringan · Production',
+    href: 'https://github.com/ahmadaminTI/organisasi-kampus',
+    tags: ['PHP', 'MySQL', 'PDO', 'JavaScript', 'HTML/CSS'],
+    featured: true,
+  },
 ]
 
 const CONTACTS = [
@@ -630,7 +640,7 @@ function App() {
                 key={project.num}
                 onMouseMove={handleTilt}
                 onMouseLeave={resetTilt}
-                className={`reveal reveal-delay-${i % 2} card-lift group flex min-h-[300px] flex-col justify-between rounded-md border border-zinc-800 bg-zinc-900/40 p-6 hover:border-[#c9a55f]/50`}
+                className={`reveal reveal-delay-${i % 2} card-lift group flex min-h-[300px] flex-col justify-between rounded-md border border-zinc-800 bg-zinc-900/40 p-6 hover:border-[#c9a55f]/50 ${project.featured ? 'lg:col-span-2' : ''}`}
               >
                 <div>
                   <div className="flex items-center justify-between">
